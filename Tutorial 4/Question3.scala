@@ -7,13 +7,13 @@ object Q3 extends App{
     s.toLowerCase()
   }
 
-  def names(name: String)(func: String => String): String = {
+  def formatNames(name: String)(func: String => String): String = {
     func(name)
   }
 
-  println(names("Benny")(toUpper(_)))
-  println(names("Niroshan".substring(0,2))(toUpper(_)) + names("Niroshan".substring(2))(toLower(_)))
-  println(names("Saman")(toLower(_)))
-  println(names("Kumara".substring(0,1))(toUpper(_)) + names("Kumara".substring(1,5))(toLower(_)) + names("Kumara".substring(5))(toUpper(_)))
+  println(formatNames("Benny")(toUpper(_)))
+  println(formatNames("Niroshan".substring(0,2))(toUpper(_)) + formatNames("Niroshan".substring(2))(toLower(_)))
+  println(formatNames("Saman")(toLower(_)))
+  println(formatNames("Kumara".substring(0,1))(toUpper(_)) + formatNames("Kumara".substring(1,5))(toLower(_)) + formatNames("Kumara".substring(5))(toUpper(_)))
 
 }
