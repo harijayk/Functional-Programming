@@ -1,46 +1,37 @@
-object Q3 extends App {
-    var accountList:List[Account] = List()
+ import scala.io.StdIn.readDouble
+ class Account(id:String,n:Int,b:Double){
+    val nic:String=id
+    val acno=n
+    var balance=b
 
-    def accCreate(nic:String, accId: Int):Unit = {
-        val acc = new Account(nic, accId)
-        accountList = accountList ::: acc :: Nil
-        println(accountList)
-    }
-
-    val find = (a:Int, b:List[Account]) => b.filter(account => account.accId.equals(a))
-
-    /*              Driver Code                */
+    def withdraw(a:Double)=this.balance-a
+   
+    def deposit(a:Double)=this.balance+a
     
-    accCreate("1",1)
-    accCreate("2",2)
-
-    //deposit money
-    find(1, accountList)(0).deposit(1000)
-    println(find(1, accountList)(0))
-
-    //transfer money
-    find(1, accountList)(0).transfer(2, 100.0)
-    println(find(2, accountList)(0))
-}
-
-class Account(nic:String, val accId: Int, var balance: Double = 0.0){
-
-    def withdrow(amount:Double) : Unit = {
-        this.balance = this.balance - amount
-    }
-
-    def deposit(amount:Double) : Unit = {
-        this.balance = this.balance + amount
-    }
-
-    def transfer(account:Int, amount:Double) : Unit = {
-        val transferAcc = Q4.find(account, Q4.accountList)
-        if (balance < 0.0) println("Insufficient balance")
-        else {
-            this.withdrow(amount)
-            transferAcc(0).deposit(amount)
+    def transfer(a:Account,b:Double)={
+        if(b>this.balance){
+          println("No sufficient funds")
+        }else{
+          this.balance=this.withdraw(b)
+          a.balance=a.deposit(b)
         }
     }
+}
+object Q3 extends App{
+  val acc1=new Account("001",123,25000)
+  val acc2=new Account("002",234,50000)
 
-    override def toString = "["+nic+":"+accId +":"+ balance+"]"
+  var bank:List[Account]=List(acc1,acc2)
+
+  println("Before the transaction:")
+  println("Account "+acc1.acno+" balance:"+acc1.balance)
+  println("Account "+acc2.acno+" balance:"+acc2.balance+"\n")
+
+  print("Enter the amount you want to transfer:")
+  var amount=readDouble()
+  acc1.transfer(acc2,amount)
+  //acc2.transfer(acc1,amount)
+  println("After the transaction:")
+  println("Account "+acc1.acno+" balance:"+acc1.balance)
+  println("Account "+acc2.acno+" balance:"+acc2.balance)
 }
