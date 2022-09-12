@@ -1,17 +1,11 @@
-object Q1 extends App {
-    val obj = new Rational(1,2)
-    val objj = new Rational(4,5)
-    println(obj.neg)
-    val q = obj.add(objj)
-    println(q)
+class Rational(x:Int,y:Int){
+    require(y>0,"denominator must be positive")
+    val nume=x
+    val denom=y
+    def neg = new Rational(-this.nume,this.denom)
 }
-
-class Rational(n:Int, d:Int) {
-    require(denom > 0, "Denominator must be greater than 0")
-    def numer = n
-    def denom = d
-
-    def add(r:Rational) = new Rational(this.numer*r.denom + this.denom*r.numer, this.denom*r.denom)
-    def neg = new Rational(-this.numer, this.denom)
-    override def toString(): String = numer + "/" + denom
+object Q1 extends App{
+    val x = new Rational(1,3)
+    val result=x.neg;
+    println("Negative value of " + x.nume + "/" + x.denom + " is " + result.nume + "/" + result.denom)
 }
